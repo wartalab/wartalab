@@ -57,7 +57,18 @@ body {
   /* clip-path: circle(50% at 50% 50%); */
      -webkit-clip-path: circle(50% at 50% 50%);
     clip-path: circle(50% at 50% 50%);
+}
 
+.business-info {
+    text-align: center;
+}
+
+.map-link {
+    margin-right: 10px; /* Adjust the margin as needed */
+}
+
+.call-button {
+    margin-left: 10px; /* Adjust the margin as needed */
 }
 
 .business-info {
