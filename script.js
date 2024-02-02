@@ -16,7 +16,7 @@ function createBusiness(imagePath, businessName, phoneNumber, address, city, sta
     const getInitials = (str) => str.match(/\b[a-zA-Z]/g).join('');
 
     // Generate alt text with first initials if business name is longer than 22 characters
-    const altText = businessName.length > 22 ?
+    const altText = businessName.length > 10 ?
         getInitials(businessName) :
         businessName;
 
