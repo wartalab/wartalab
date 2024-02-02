@@ -10,7 +10,7 @@ body {
     padding: 10px;
     border-radius: 8px;
     overflow-x: auto;
-    background-color: #fff;
+    background-color: #808080;
 }
 
 .category-header {
@@ -31,7 +31,7 @@ body {
     padding: 10px;
     overflow: hidden;
     cursor: pointer;
-    background-color: green;
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 25px;
     margin: 10px;
