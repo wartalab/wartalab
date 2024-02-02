@@ -33,7 +33,7 @@ function createBusiness(imagePath, businessName, phoneNumber, address, city, sta
             <div class="business-info">
                 <h3>${businessName}</h3>
                 ${phoneSection}
-                <a href="${mapLink}" target="_blank">View on Map</a>
+                <a href="${mapLink}" target="_blank">Map</a>
             </div>
         </div>`;
 }
