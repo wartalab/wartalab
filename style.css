@@ -54,7 +54,9 @@ body {
     margin-bottom: 10px;
     margin: 0 auto;
    /* border-radius: 50%; */
-   clip-path: circle(50% at 50% 50%);
+  /* clip-path: circle(50% at 50% 50%); */
+     -webkit-clip-path: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%);
 
 }
 
