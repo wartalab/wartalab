@@ -24,7 +24,7 @@ function createBusiness(imagePath, businessName, phoneNumber, address, city, sta
     return `
         <div class="business" data-state="${state}" data-city="${city}" onclick="showBusinessDetails('${businessName}', '${fullAddress}', '${phoneNumber}')">
             <div class="business-logo">
-                <img src="${imagePath}" alt="${altText}" style="width: 100%; height: 100%;">
+                <img src="${imagePath}" alt=" " style="width: 100%; height: 100%;">
             </div>
             <div class="business-info">
                 <h3>${businessName}</h3>
