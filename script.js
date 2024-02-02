@@ -11,6 +11,7 @@ function createBusiness(imagePath, businessName, phoneNumber, address, city, sta
     const fullAddress = `${address}, ${city}, ${state} ${zipCode}`;
     const encodedAddress = encodeURIComponent(fullAddress);
     const mapLink = `https://maps.google.com/?q=${encodedAddress}`;
+    const callButton = `<a href="tel:${phoneNumber}" class="call-button">Call</a>`;
 
     // Function to generate first initials of each word while excluding non-alphabetic characters
     const getInitials = (str) => str.match(/\b[a-zA-Z]/g).join('');
@@ -20,11 +21,6 @@ function createBusiness(imagePath, businessName, phoneNumber, address, city, sta
         getInitials(businessName) :
         businessName;
 
-    let phoneSection = '';
-    if (phoneNumber && phoneNumber.trim() !== '') {
-        phoneSection = `<p>Phone: <a href="tel:${phoneNumber}">${phoneNumber}</a></p>`;
-    }
-
     return `
         <div class="business" data-state="${state}" data-city="${city}" onclick="showBusinessDetails('${businessName}', '${fullAddress}', '${phoneNumber}')">
             <div class="business-logo">
@@ -32,11 +28,12 @@ function createBusiness(imagePath, businessName, phoneNumber, address, city, sta
             </div>
             <div class="business-info">
                 <h3>${businessName}</h3>
-                ${phoneSection}
-                <a href="${mapLink}" target="_blank">Map</a>
+                <a href="${mapLink}" target="_blank" class="map-link">Map</a>
+                ${callButton}
             </div>
         </div>`;
 }
+
 
 
 
