@@ -18,6 +18,8 @@ body {
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 10px;
+	position: sticky;
+	left: 1px;
 }
 
 .business-container {
