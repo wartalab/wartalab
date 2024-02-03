@@ -1,149 +1,181 @@
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #808080;
+	font-family: Arial, sans-serif;
+	margin: 20px;
+	background-color: #808080;
 }
 
 .category {
-    margin-bottom: 40px;
-    padding: 10px;
-    border-radius: 8px;
-    overflow-x: auto;
-    background-color: #808080;
+	margin-bottom: 40px;
+	padding: 10px;
+	border-radius: 8px;
+	overflow-x: auto;
+	background-color: #808080;
 }
 
 .category-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
 }
 
 .business-container {
-    display: inline-flex;
-    flex-wrap: nowrap;
+	display: inline-flex;
+	flex-wrap: nowrap;
+	position: relative;
 }
 
 .business {
-    flex: 1 0 30% /* remove */
-    box-sizing: border-box;
-    padding: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    margin: 10px;
-    transition: background-color 0.3s;
-   /* width: 100px;  Specify the desired width */
-    
+	flex: 1 0 200px;
+	box-sizing: border-box;
+	padding: 10px;
+	overflow: hidden;
+	cursor: pointer;
+	background-color: #8675e4;
+	border: 1px solid #ddd;
+	border-radius: 25px;
+	margin: 10px;
+	transition: background-color 0.3s;
+	width: 150px;
+	height: 250px;
+	position:relative;
 }
 
 .business:hover {
-    background-color: #f0f0f0;
+	background-color: #5c81e6;
 }
 
 .business-logo {
-    width: 100px; 
-    height: 100px; 
-    background-color: #3498db;
-    color: #fff;
-    text-align: center;
-    line-height: 100px;
-    margin-bottom: 10px;
-    margin: 0 auto;
-   /* border-radius: 50%; */
-  /* clip-path: circle(50% at 50% 50%); */
-     -webkit-clip-path: circle(50% at 50% 50%);
-    clip-path: circle(50% at 50% 50%);
+	width: 100px;
+	height: 100px;
+	background-color: #808080;
+	color: #fff;
+	text-align: center;
+	line-height: 100px;
+	margin-bottom: 10px;
+	margin: 0 auto;
+	-webkit-clip-path: circle(50% at 50% 50%);
+	clip-path: circle(50% at 50% 50%);
 }
 
 .business-info {
-    text-align: center;
+	text-align: center;
 }
 
+/* Add these styles to make the "Call" and "Map" buttons fancy */
+
+/* Consolidate common styles for both "Call" and "Map" buttons */
+
+.call-button,
 .map-link {
-    margin-right: 10px; /* Adjust the margin as needed */
+	display: inline-block;
+	padding: 10px 20px;
+	margin: 10px 10px 10px 0;
+	text-align: center;
+	text-decoration: none;
+	color: white;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	
 }
 
 .call-button {
-    margin-left: 10px; /* Adjust the margin as needed */
+	background-color: #27ae60; /* Green color for "Call" button */
+	margin-left: 10px;
+	
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	
 }
 
-.business-info {
-    text-align: center;
+.map-link {
+	background-color: #3498db; /* Blue color for "Map" button */
+	margin-right: 10px; /* Add margin-right for "Map" button */
+position: absolute;
+	bottom: 0;
+	right: 0;
+	
+
 }
+
+.call-button:hover,
+.map-link:hover {
+	background-color: #1d904f; /* Darker green for "Call" button and darker blue for "Map" button on hover */
+}
+
 
 .business.hidden {
-    display: none;
+	display: none;
 }
 
 #select-state {
-    margin-top: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+	margin-top: 10px;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
 #select-state:hover {
-    background-color: #45a049;
+	background-color: #45a049;
 }
 
 #cities-container {
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 .city-button {
-    background-color: #008CBA;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-right: 10px;
-    margin-bottom: 10px;
+	background-color: #008CBA;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	margin-right: 10px;
+	margin-bottom: 10px;
 }
 
 .city-button:hover {
-    background-color: #005F6B;
+	background-color: #005F6B;
 }
 
 #search-container {
-    text-align: center;
-    margin-bottom: 20px;
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 #search-input {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 70%;
-    margin-right: 10px;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	width: 70%;
+	margin-right: 10px;
 }
 
 #search-button {
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+	padding: 10px 20px;
+	background-color: #3498db;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
 }
 
 #search-button:hover {
-    background-color: #2980b9;
+	background-color: #2980b9;
 }
