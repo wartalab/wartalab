@@ -16,6 +16,29 @@
             font-family: Arial, sans-serif;
         }
 
+        #beginButton {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #00bfff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #beginButton:hover {
+            background-color: #008fbf;
+        }
+
+        #gameContainer {
+            display: none; /* Hide the game container initially */
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
         #amountPerGame {
             font-size: 20px;
             margin: 20px 0; /* Add some margin to give space around the text */
@@ -66,9 +89,6 @@
         }
 
         .buttons {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
             display: flex;
             justify-content: center;
             background-color: #fff;
@@ -94,14 +114,19 @@
     </style>
 </head>
 <body>
-    <div id="amountPerGame">Amount per game: -</div>
-    <div id="boxContainer"></div>
-    <div class="buttons">
-        <button id="addButton">Add Player</button>
-        <button id="removeButton">Remove Player</button>
-        <button id="updateButton">Update</button>
-        <button id="submitButton">Submit</button>
+    <button id="beginButton">Begin TeenPatti</button>
+
+    <div id="gameContainer">
+        <div id="amountPerGame">Amount per game: -</div>
+        <div id="boxContainer"></div>
+        <div class="buttons">
+            <button id="addButton">Add Player</button>
+            <button id="removeButton">Remove Player</button>
+            <button id="updateButton">Update</button>
+            <button id="submitButton">Submit</button>
+        </div>
     </div>
+
     <script>
         let players = []; // Array to store player objects with name and balance
         let amountPerGame = 0;
@@ -111,6 +136,8 @@
         const removeButton = document.getElementById('removeButton');
         const updateButton = document.getElementById('updateButton');
         const submitButton = document.getElementById('submitButton');
+        const beginButton = document.getElementById('beginButton');
+        const gameContainer = document.getElementById('gameContainer');
 
         function updateAmountPerGame() {
             amountPerGameDisplay.textContent = `Amount per game: ${amountPerGame}`;
@@ -149,10 +176,12 @@
             });
         }
 
-        window.onload = () => {
+        beginButton.addEventListener('click', () => {
+            gameContainer.style.display = 'flex';
+            beginButton.style.display = 'none';
             amountPerGame = promptAmountPerGame();
             updateAmountPerGame();
-        };
+        });
 
         addButton.addEventListener('click', () => {
             let playerName = prompt('Enter name for the player:');
