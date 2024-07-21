@@ -3,22 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Videos</title>
+    <title>Box Manipulation</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        ul { list-style-type: none; padding: 0; }
-        li { margin-bottom: 10px; }
-        a { text-decoration: none; color: #007BFF; }
-        a:hover { text-decoration: underline; }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            justify-content: flex-start;
+            font-family: Arial, sans-serif;
+        }
+
+        #beginButton {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #00bfff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #beginButton:hover {
+            background-color: #008fbf;
+        }
+
+        #gameContainer {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        #amountControls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px; /* Added margin for spacing */
+        }
+
+        #amountControls button {
+            font-size: 20px;
+            padding: 5px 10px;
+            background-color: #00bfff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #amountControls button:hover {
+            background-color: #008fbf;
+        }
+
+        #amount {
+            font-size: 20px;
+            margin: 0 10px; /* Adjust margin as needed */
+        }
+
+        #boxContainer {
+            display: grid;
+            grid-template-columns: repeat(3, 150px);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .box {
+            width: 150px;
+            height: 150px;
+            background-color: #f0f8ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+            border: 2px solid #00bfff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .balance {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            font-weight: bold;
+            color: #ff4500;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-button {
+            display: none;
+            position: absolute;
+            bottom: 50%;
+            transform: translateY(50%);
+            font-size: 14px;
+            padding: 5px 10px;
+            background-color: #00bfff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .submit-button:hover {
+            background-color: #008fbf;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #00bfff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .buttons button:hover {
+            background-color: #008fbf;
+        }
     </style>
 </head>
 <body>
-    <h1>Download Videos</h1>
-    <ul>
-        <li><a href="https://youtu.be/fSuCSkg1iSA?si=rlivirxLAbOXCRXV" download>Download Video1</a></li>
-        <li><a href="videos/video2.mp4" download>Download Video 2</a></li>
-        <li><a href="videos/video3.mp4" download>Download Video 3</a></li>
-        <!-- Add more video links as needed -->
-    </ul>
+    <button id="beginButton">Begin TeenPatti</button>
+
+    <div id="gameContainer">
+        <div id="amountControls">
+            <button id="decreaseAmount">-</button>
+            <span id="amount">0</span>
+            <button id="increaseAmount">+</button>
+        </div>
+        <div id="boxContainer"></div>
+        <div class="buttons">
+            <button id="addButton">Add Player</button>
+            <button id="removeButton">Remove Player</button>
+            <button id="submitButton">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        let players = []; // Array to store player objects with name and balance
+        let amountPerGame = 0;
+        const amountDisplay = document.getElementById('amount');
+        const boxContainer = document.getElementById('boxContainer');
+        const addButton = document.getElementById('addButton');
+        const removeButton = document.getElementById('removeButton');
+        const submitButton = document.getElementById('submitButton');
+        const beginButton = document.getElementById('beginButton');
+        const gameContainer = document.getElementById('gameContainer');
+        const increaseAmountButton = document.getElementById('increaseAmount');
+        const decreaseAmountButton = document.getElementById('decreaseAmount');
+
+        function updateAmountPerGame() {
+            amountDisplay.textContent = amountPerGame;
+        }
+
+        function isNameTaken(name) {
+            return players.some(player => player.name === name);
+        }
+
+        function createPlayerElement(player) {
+            const playerElement = document.createElement('div');
+            playerElement.className = 'box';
+            playerElement.setAttribute('data-name', player.name); // Add this line
+            playerElement.textContent = player.name;
+
+            const balanceElement = document.createElement('div');
+            balanceElement.className = 'balance';
+            balanceElement.textContent = `Balance: $${player.balance}`;
+            playerElement.appendChild(balanceElement);
+
+            const wonButton = document.createElement('button');
+            wonButton.className = 'won-button';
+            wonButton.textContent = 'Won';
+            wonButton.addEventListener('click', () => {
+                adjustBalances(player.name);
+            });
+            playerElement.appendChild(wonButton);
+
+            return playerElement;
+        }
+
+        function updatePlayerBalances() {
+            document.querySelectorAll('.box').forEach((playerElement, index) => {
+                playerElement.querySelector('.balance').textContent = `Balance: $${players[index].balance}`;
+            });
+        }
+
+        function adjustBalances(winnerName) {
+            // Find the winner
+            const winner = players.find(player => player.name === winnerName);
+
+            if (!winner) return;
+
+            // Calculate the amount to deduct from each loser
+            const amountToDeduct = amountPerGame;
+
+            // Deduct from each player who is not the winner
+            players.forEach(player => {
+                if (player.name !== winnerName) {
+                    player.balance -= amountToDeduct;
+                }
+            });
+
+            // Add the winnings to the winner's balance
+            winner.balance += amountToDeduct * (players.length - 1);
+
+            // Update the displayed balances
+            updatePlayerBalances();
+        }
+
+        beginButton.addEventListener('click', () => {
+            gameContainer.style.display = 'flex';
+            beginButton.style.display = 'none';
+            updateAmountPerGame();
+        });
+
+        increaseAmountButton.addEventListener('click', () => {
+            amountPerGame += 1;
+            updateAmountPerGame();
+        });
+
+        decreaseAmountButton.addEventListener('click', () => {
+            if (amountPerGame > 0) {
+                amountPerGame -= 1;
+                updateAmountPerGame();
+            }
+        });
+
+        addButton.addEventListener('click', () => {
+            let playerName = prompt('Enter name for the player:');
+            while (playerName && (playerName.length > 10 || isNameTaken(playerName))) {
+                if (playerName.length > 10) {
+                    alert('Player name cannot exceed 10 characters.');
+                } else {
+                    alert('Name already taken. Please enter a different name.');
+                }
+                playerName = prompt('Enter name for the player:');
+            }
+
+            if (playerName) {
+                const newPlayer = { name: playerName, balance: 0 };
+                players.push(newPlayer);
+                const playerElement = createPlayerElement(newPlayer);
+                boxContainer.appendChild(playerElement);
+            }
+        });
+
+        removeButton.addEventListener('click', () => {
+            const playerNameToRemove = prompt('Enter the name of the player to remove:');
+            if (playerNameToRemove && isNameTaken(playerNameToRemove)) {
+                players = players.filter(player => player.name !== playerNameToRemove);
+                const playerElementToRemove = document.querySelector(`.box[data-name="${playerNameToRemove}"]`);
+                if (playerElementToRemove) {
+                    boxContainer.removeChild(playerElementToRemove);
+                }
+            } else {
+                alert('Player name not found or already removed.');
+            }
+        });
+
+        submitButton.addEventListener('click', () => {
+            players.forEach(player => {
+                player.balance = 0;
+            });
+            updatePlayerBalances();
+        });
+
+    </script>
 </body>
 </html>
