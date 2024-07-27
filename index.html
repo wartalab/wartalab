@@ -1,306 +1,429 @@
+<!-- Created by Alpha Beeta -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Box Manipulation</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            justify-content: flex-start;
-            font-family: Arial, sans-serif;
-        }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Card Games</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin: 0;
+			padding: 0;
+			height: 100vh;
+			justify-content: flex-start;
+			font-family: 'Poppins', sans-serif;
+			background: linear-gradient(to right, #1e3c72, #2a5298);
+			color: #fff;
+		}
 
-        #beginButton {
-            font-size: 20px;
-            padding: 10px 20px;
-            margin-top: 20px;
-            background-color: #00bfff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
+		.gameButton, .buttons button {
+			font-size: 16px;
+			padding: 10px 20px;
+			margin: 5px;
+			background-color: #007BFF;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		}
 
-        #beginButton:hover {
-            background-color: #008fbf;
-        }
+		.gameButton:hover, .buttons button:hover {
+			background-color: #0056b3;
+			transform: translateY(-3px);
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+		}
 
-        #gameContainer {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
+		.gameButton i, .buttons button i {
+			margin-right: 8px;
+		}
 
-        #amountControls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px; /* Added margin for spacing */
-        }
+		#gameContainer {
+			display: none;
+			flex-direction: column;
+			align-items: center;
+			width: 100%;
+			padding: 20px;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 10px;
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+		}
 
-        #amountControls button {
-            font-size: 20px;
-            padding: 5px 10px;
-            background-color: #00bfff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
+		#amountControls {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-top: 20px;
+		}
 
-        #amountControls button:hover {
-            background-color: #008fbf;
-        }
+		#amountControls button {
+			font-size: 16px;
+			padding: 10px;
+			background-color: #007BFF;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.2s;
+		}
 
-        #amount {
-            font-size: 20px;
-            margin: 0 10px; /* Adjust margin as needed */
-        }
+		#amountControls button:hover {
+			background-color: #0056b3;
+		}
 
-        #boxContainer {
-            display: grid;
-            grid-template-columns: repeat(3, 150px);
-            gap: 20px;
-            padding: 20px;
-        }
+		#amount {
+			font-size: 20px;
+			margin: 0 10px;
+		}
 
-        .box {
-            width: 150px;
-            height: 150px;
-            background-color: #f0f8ff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-            position: relative;
-            border: 2px solid #00bfff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+		#boxContainer {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 20px;
+			padding: 20px;
+		}
 
-        .box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
+		.box {
+			width: 150px;
+			height: 150px;
+			background-color: #f0f8ff;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			font-size: 18px;
+			font-weight: bold;
+			text-align: center;
+			position: relative;
+			border: 2px solid #007bff;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			transition: transform 0.2s, box-shadow 0.2s;
+		}
 
-        .balance {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            font-weight: bold;
-            color: #ff4500;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 2px 6px;
-            border-radius: 4px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+		.box:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+		}
 
-        .submit-button {
-            display: none;
-            position: absolute;
-            bottom: 50%;
-            transform: translateY(50%);
-            font-size: 14px;
-            padding: 5px 10px;
-            background-color: #00bfff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
+		.name {
+			position: absolute;
+			top: 10px;
+			left: 50%;
+			transform: translateX(-50%);
+			font-size: 14px;
+			font-weight: bold;
+			color: #000;
+		}
 
-        .submit-button:hover {
-            background-color: #008fbf;
-        }
+		.balance {
+			position: absolute;
+			bottom: 10px;
+			left: 50%;
+			transform: translateX(-50%);
+			font-size: 14px;
+			font-weight: bold;
+			color: #ff4500;
+			background-color: rgba(255, 255, 255, 0.8);
+			padding: 2px 6px;
+			border-radius: 4px;
+			text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
 
-        .buttons {
-            display: flex;
-            justify-content: center;
-            background-color: #fff;
-            padding: 10px;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-        }
+		.won-button {
+			position: absolute;
+			bottom: 50%;
+			transform: translateY(50%);
+			font-size: 14px;
+			padding: 5px 10px;
+			background-color: #007bff;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.2s;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 
-        .buttons button {
-            margin: 0 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #00bfff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
+		.won-button:hover {
+			background-color: #0056b3;
+		}
 
-        .buttons button:hover {
-            background-color: #008fbf;
-        }
-    </style>
+		.won-button i {
+			margin-right: 8px;
+		}
+
+		.buttons {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-top: 20px;
+		}
+
+		/* Media Queries */
+		@media (max-width: 600px) {
+			.gameButton, .buttons button {
+				font-size: 14px;
+				padding: 8px 16px;
+			}
+
+			#amount {
+				font-size: 18px;
+			}
+
+			#amountControls button {
+				font-size: 14px;
+				padding: 8px;
+			}
+		}
+
+		@media (max-width: 400px) {
+			.gameButton, .buttons button {
+				font-size: 12px;
+				padding: 6px 12px;
+			}
+
+			#amount {
+				font-size: 16px;
+			}
+
+			#amountControls button {
+				font-size: 12px;
+				padding: 6px;
+			}
+		}
+	</style>
 </head>
 <body>
-    <button id="beginButton">Begin TeenPatti</button>
+	<button class="gameButton" id="beginTeenPattiButton"><i class="fas fa-gamepad"></i> TeenPatti</button>
+	<button class="gameButton" id="begin1000Button"><i class="fas fa-dice"></i> 1000</button>
 
-    <div id="gameContainer">
-        <div id="amountControls">
-            <button id="decreaseAmount">-</button>
-            <span id="amount">0</span>
-            <button id="increaseAmount">+</button>
-        </div>
-        <div id="boxContainer"></div>
-        <div class="buttons">
-            <button id="addButton">Add Player</button>
-            <button id="removeButton">Remove Player</button>
-            <button id="submitButton">Submit</button>
-        </div>
-    </div>
+	<div id="gameContainer">
+		<div id="amountControls">
+			<button id="decreaseAmount"><i class="fas fa-minus"></i></button>
+			<span id="amount">0</span>
+			<button id="increaseAmount"><i class="fas fa-plus"></i></button>
+		</div>
+		<div id="boxContainer"></div>
+		<div class="buttons">
+			<button id="addButton"><i class="fas fa-user-plus"></i> Add</button>
+			<button id="removeButton"><i class="fas fa-user-minus"></i> Remove</button>
+			<button id="submitButton"><i class="fas fa-check"></i> Submit</button>
+			<button id="undoButton"><i class="fas fa-undo"></i> Undo</button>
+			<button id="completeRoundButton" style="display: none;"><i class="fas fa-flag-checkered"></i> Complete</button>
+		</div>
+	</div>
 
-    <script>
-        let players = []; // Array to store player objects with name and balance
-        let amountPerGame = 0;
-        const amountDisplay = document.getElementById('amount');
-        const boxContainer = document.getElementById('boxContainer');
-        const addButton = document.getElementById('addButton');
-        const removeButton = document.getElementById('removeButton');
-        const submitButton = document.getElementById('submitButton');
-        const beginButton = document.getElementById('beginButton');
-        const gameContainer = document.getElementById('gameContainer');
-        const increaseAmountButton = document.getElementById('increaseAmount');
-        const decreaseAmountButton = document.getElementById('decreaseAmount');
+	<script>
+		let players = [];
+		let amountPerGame = 0;
+		let previousState = [];
+		let currentGame = '';
+		let currentRoundPoints = 0;
 
-        function updateAmountPerGame() {
-            amountDisplay.textContent = amountPerGame;
-        }
+		const amountDisplay = document.getElementById('amount');
+		const boxContainer = document.getElementById('boxContainer');
+		const addButton = document.getElementById('addButton');
+		const removeButton = document.getElementById('removeButton');
+		const submitButton = document.getElementById('submitButton');
+		const beginTeenPattiButton = document.getElementById('beginTeenPattiButton');
+		const begin1000Button = document.getElementById('begin1000Button');
+		const increaseAmountButton = document.getElementById('increaseAmount');
+		const decreaseAmountButton = document.getElementById('decreaseAmount');
+		const undoButton = document.getElementById('undoButton');
+		const completeRoundButton = document.getElementById('completeRoundButton');
+		const gameContainer = document.getElementById('gameContainer');
 
-        function isNameTaken(name) {
-            return players.some(player => player.name === name);
-        }
+		function updateAmountPerGame() {
+			amountDisplay.textContent = amountPerGame;
+		}
 
-        function createPlayerElement(player) {
-            const playerElement = document.createElement('div');
-            playerElement.className = 'box';
-            playerElement.setAttribute('data-name', player.name); // Add this line
-            playerElement.textContent = player.name;
+		function isNameTaken(name)
+		
+	
 
-            const balanceElement = document.createElement('div');
-            balanceElement.className = 'balance';
-            balanceElement.textContent = `Balance: $${player.balance}`;
-            playerElement.appendChild(balanceElement);
 
-            const wonButton = document.createElement('button');
-            wonButton.className = 'won-button';
-            wonButton.textContent = 'Won';
-            wonButton.addEventListener('click', () => {
-                adjustBalances(player.name);
-            });
-            playerElement.appendChild(wonButton);
 
-            return playerElement;
-        }
 
-        function updatePlayerBalances() {
-            document.querySelectorAll('.box').forEach((playerElement, index) => {
-                playerElement.querySelector('.balance').textContent = `Balance: $${players[index].balance}`;
-            });
-        }
 
-        function adjustBalances(winnerName) {
-            // Find the winner
-            const winner = players.find(player => player.name === winnerName);
 
-            if (!winner) return;
 
-            // Calculate the amount to deduct from each loser
-            const amountToDeduct = amountPerGame;
+ {
+			return players.some(player => player.name === name);
+		}
 
-            // Deduct from each player who is not the winner
-            players.forEach(player => {
-                if (player.name !== winnerName) {
-                    player.balance -= amountToDeduct;
-                }
-            });
+		function createPlayerElement(player) {
+			const playerElement = document.createElement('div');
+			playerElement.className = 'box';
+			playerElement.setAttribute('data-name', player.name);
 
-            // Add the winnings to the winner's balance
-            winner.balance += amountToDeduct * (players.length - 1);
+			const nameElement = document.createElement('div');
+			nameElement.className = 'name';
+			nameElement.textContent = player.name;
+			playerElement.appendChild(nameElement);
 
-            // Update the displayed balances
-            updatePlayerBalances();
-        }
+			const balanceElement = document.createElement('div');
+			balanceElement.className = 'balance';
+			balanceElement.textContent = `Points: ${player.balance}`;
+			playerElement.appendChild(balanceElement);
 
-        beginButton.addEventListener('click', () => {
-            gameContainer.style.display = 'flex';
-            beginButton.style.display = 'none';
-            updateAmountPerGame();
-        });
+			if (currentGame !== '1000') {
+				const wonButton = document.createElement('button');
+				wonButton.className = 'won-button';
+				wonButton.innerHTML = '<i class="fas fa-trophy"></i> Won';
+				wonButton.addEventListener('click', () => {
+					adjustBalances(player.name, amountPerGame);
+				});
+				playerElement.appendChild(wonButton);
+			}
 
-        increaseAmountButton.addEventListener('click', () => {
-            amountPerGame += 1;
-            updateAmountPerGame();
-        });
+			return playerElement;
+		}
 
-        decreaseAmountButton.addEventListener('click', () => {
-            if (amountPerGame > 0) {
-                amountPerGame -= 1;
-                updateAmountPerGame();
-            }
-        });
+		function renderPlayers() {
+			boxContainer.innerHTML = '';
+			players.forEach(player => {
+				boxContainer.appendChild(createPlayerElement(player));
+			});
+		}
 
-        addButton.addEventListener('click', () => {
-            let playerName = prompt('Enter name for the player:');
-            while (playerName && (playerName.length > 10 || isNameTaken(playerName))) {
-                if (playerName.length > 10) {
-                    alert('Player name cannot exceed 10 characters.');
-                } else {
-                    alert('Name already taken. Please enter a different name.');
-                }
-                playerName = prompt('Enter name for the player:');
-            }
+		function saveState() {
+			previousState = JSON.parse(JSON.stringify(players));
+		}
 
-            if (playerName) {
-                const newPlayer = { name: playerName, balance: 0 };
-                players.push(newPlayer);
-                const playerElement = createPlayerElement(newPlayer);
-                boxContainer.appendChild(playerElement);
-            }
-        });
+		function adjustBalances(winnerName, winningAmount) {
+			if (winningAmount <= 0) return;  // Ensure the amount is positive
+			saveState();
+			players.forEach(player => {
+				if (player.name === winnerName) {
+					player.balance += winningAmount * (players.length - 1);
+				} else {
+					player.balance -= winningAmount;
+				}
+			});
+			renderPlayers();
+		}
 
-        removeButton.addEventListener('click', () => {
-            const playerNameToRemove = prompt('Enter the name of the player to remove:');
-            if (playerNameToRemove && isNameTaken(playerNameToRemove)) {
-                players = players.filter(player => player.name !== playerNameToRemove);
-                const playerElementToRemove = document.querySelector(`.box[data-name="${playerNameToRemove}"]`);
-                if (playerElementToRemove) {
-                    boxContainer.removeChild(playerElementToRemove);
-                }
-            } else {
-                alert('Player name not found or already removed.');
-            }
-        });
+		function initializeGame() {
+			players = [];
+			amountPerGame = 0;
+			currentRoundPoints = 0;
+			updateAmountPerGame();
+			renderPlayers();
+		}
 
-        submitButton.addEventListener('click', () => {
-            players.forEach(player => {
-                player.balance = 0;
-            });
-            updatePlayerBalances();
-        });
+		function checkGameWinner() {
+			const winner = players.find(player => player.balance >= 1000);
+			if (winner) {
+				alert(`${winner.name} wins the game with ${winner.balance} points!`);
+				// Optionally, highlight the winner
+				document.querySelector(`.box[data-name="${winner.name}"]`).style.borderColor = 'gold';
+				// Do not reset the game to allow continuous play
+			}
+		}
 
-    </script>
+		beginTeenPattiButton.addEventListener('click', () => {
+			currentGame = 'TeenPatti';
+			initializeGame();
+			gameContainer.style.display = 'flex';
+			beginTeenPattiButton.style.display = 'none';
+			begin1000Button.style.display = 'none';
+			document.getElementById('amountControls').style.display = 'flex';
+			completeRoundButton.style.display = 'none';
+		});
+
+		begin1000Button.addEventListener('click', () => {
+			currentGame = '1000';
+			initializeGame();
+			gameContainer.style.display = 'flex';
+			beginTeenPattiButton.style.display = 'none';
+			begin1000Button.style.display = 'none';
+			document.getElementById('amountControls').style.display = 'none';
+			completeRoundButton.style.display = 'inline-block';
+		});
+
+		addButton.addEventListener('click', () => {
+			const playerName = prompt('Enter player name:');
+			if (playerName && !isNameTaken(playerName)) {
+				players.push({ name: playerName, balance: 0 });
+				renderPlayers();
+			}
+		});
+
+		removeButton.addEventListener('click', () => {
+			const playerName = prompt('Enter player name to remove:');
+			if (playerName) {
+				players = players.filter(player => player.name !== playerName);
+				renderPlayers();
+			}
+		});
+
+		submitButton.addEventListener('click', () => {
+			players.forEach(player => {
+				player.balance = 0;
+			});
+			renderPlayers();
+		});
+
+		increaseAmountButton.addEventListener('click', () => {
+			amountPerGame++;
+			updateAmountPerGame();
+		});
+
+		decreaseAmountButton.addEventListener('click', () => {
+			if (amountPerGame > 0) {
+				amountPerGame--;
+				updateAmountPerGame();
+			}
+		});
+
+		undoButton.addEventListener('click', () => {
+			if (previousState.length) {
+				players = JSON.parse(JSON.stringify(previousState));
+				renderPlayers();
+			}
+		});
+
+		completeRoundButton.addEventListener('click', () => {
+			function askForPoints() {
+				if (currentRoundPoints >= 360) {
+					alert('Total points for this round reached 360.');
+					checkGameWinner();  // Check if the game has a winner
+					currentRoundPoints = 0;  // Reset the round points
+					return;
+				}
+				const playerName = prompt('Enter Name:');
+				if (playerName && isNameTaken(playerName)) {
+					const points = parseInt(prompt('Points earned:'), 10);
+					if (currentRoundPoints + points <= 360) {
+						saveState();
+						players.find(player => player.name === playerName).balance += points;
+						currentRoundPoints += points;
+						renderPlayers();
+					} else {
+						alert('Total points exceed 360. Please enter a valid amount.');
+					}
+					askForPoints();
+				} else {
+					alert('Player not found or invalid input.');
+				}
+			}
+			askForPoints();
+		});
+	</script>
 </body>
 </html>
